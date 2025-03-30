@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Conexão em Tempo Real</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #status-conexao {
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .offline {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 2px solid #c62828;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .online {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 2px solid #2e7d32;
+        }
+        
+        .status-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Monitor de Conexão em Tempo Real</h1>    
+    <div id="status-conexao">
+        <span class="status-icon">🔃</span>
+        <span id="status-text">Verificando conexão...</span>
+    </div>
+    
+    <div id="status-booleano" style="font-family: monospace; font-size: 16px;"></div>
+    
+    <script>
+        // Elementos do DOM
+        const statusConexao = document.getElementById('status-conexao');
+        const statusText = document.getElementById('status-text');
+        const statusIcon = statusConexao.querySelector('.status-icon');        
+        // Função para verificar e atualizar o status
+        function atualizarStatus() {
+            const online = navigator.onLine;
+            
+            // Atualiza o status booleano
+            
+            if (online) {
+                // Conexão ativa
+                statusText.textContent = "";
+                statusIcon.textContent = "";
+                statusConexao.className = "online";
+            } else {
+                // Sem conexão
+                statusText.textContent = "Você está OFFLINE - Sem acesso à internet";
+                statusIcon.textContent = "❌";
+                statusConexao.className = "offline";
+            }
+            
+            // Retorna o valor booleano (opcional para uso em outras funções)
+            return online;
+        }
+        
+        // Verifica a conexão imediatamente
+        atualizarStatus();
+        
+        // Configura verificações periódicas a cada segundo
+        setInterval(atualizarStatus, 1000);
+        
+        // Monitora eventos de mudança de conexão
+        window.addEventListener('online', atualizarStatus);
+        window.addEventListener('offline', atualizarStatus);
+    </script>
+</body>
+</html>

@@ -8,14 +8,11 @@
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet">
 
-
-    <script src="scripts/scrippt_pg1.js"></script>
-
 </head>
 <body>
 
     <header>
-        <h1>Victoria Moda Festa</h1>
+        <h1>MEU APP 1.0</h1>
     </header>
 
     <main>
@@ -25,38 +22,85 @@
             <span>Lista de pedidos em produção</span>
         </div>
 
-        <div class="lineInput">
-            <label for>Produto</label>
-            <input type="text" id="produto" placeholder="Digite o modelo do vestido">
-        </div>
-        <div class="lineInput">
-            <label for>Produto</label>
-            <input type="text" id="valor" placeholder="Digite o valor do vestido">
-        </div>
+        <section class="main-display">
+            </div>
+
+            <div class="input-group" id="inputGroup-left">
+
+                <div class="lineInput">
+                    <label for>Produto</label>
+                    <input type="text" id="produto" placeholder="Digite o produto">
+                </div>
+                <div class="lineInput">
+                    <label for>Preço</label>
+                    <input type="text" id="preco" placeholder="Digite o preço do produto">
+                    
+                </div>
+            </div>
+
+            <div class="input-group" id="inputGroup-right">
+                <div class="lineInput">
+                    <label for>Cliente</label>
+                    <input type="text" id="cliente" placeholder="Digite o nome do cliente">
+                </div>
+                <div class="lineInput">
+                    <label for>Data do Pedido</label>
+                    <input type="date" id="dataPedio">
+                </div>
+            </div>
+        </section>
 
         <div class="card">
-            <button onclick="produto.adicionar()">Adicionar</button>
-            <button onclick="produto.excluir()">Excluir</button>
+            <button onclick="produto.salvar()" id="gerarPdf">Salvar</button>
+            <button onclick="produto.cancelar()">Cancelar</button>
         </div>
+
         <div class="content">
             <table border="1">
                 <thead>
-                    <th>ID</th>
+                    <th class="itemlist-id">ID</th>
                     <th>NOME</th>
                     <th>VALOR</th>
-                    <th>AÇÔES</th>
+                    <th class="itemlist-action">AÇÔES</th>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mesa Sala de estar</td>
-                        <td>1900</td>
-                        <td></td>
-                    </tr>
+                <tbody id="tbody">
+
                 </tbody>
             </table>
         </div>
     </main>
+
     
+    <section class="pdf-display">
+        <div id="pdf-content">
+            <div class="pdf-pag">
+                <DIV class="iteminfo-pdf">
+                    <label>Produto</label>
+                    <p>V0300</p>
+                </DIV>
+
+                <DIV class="iteminfo-pdf">
+                    <label>Preço</label>
+                    <p>V0300</p>
+                </DIV>
+            </div>
+            <div class="pdf-pag">
+                <h2>V0300</h2>
+                <label>Modelo</la>
+            </div> 
+        </div>  
+    </section>
+
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<!--
+Gerar pdf com biblioteca html2pdf
+-->
+
+<script src="./scripts/product_module.js"></script>
+<!--
+Orientação por OBJero
+-->    
 </body>
 </html>
