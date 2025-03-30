@@ -3,74 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerencia de Produção</title>
-
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet">
-
+    <title>Gerenciador de Produtos</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-
     <header>
         <h1>MEU APP 1.0</h1>
     </header>
 
-    <main>
 
+    <main>
         <div class="title">
             <h2>Pedidios</h2>
             <span>Lista de pedidos em produção</span>
         </div>
 
+
         <section class="main-display">
-            </div>
-
+        
             <div class="input-group" id="inputGroup-left">
-
                 <div class="lineInput">
                     <label for>Produto</label>
-                    <input type="text" id="produto" placeholder="Digite o produto">
+                    <input type="text" id="produtoInput" placeholder="Nome do produto">
                 </div>
+
                 <div class="lineInput">
-                    <label for>Preço</label>
-                    <input type="text" id="preco" placeholder="Digite o preço do produto">
-                    
+                    <label for>Cor</label>
+                    <input type="text" id="corInput" placeholder="Cor do produto">
                 </div>
             </div>
 
             <div class="input-group" id="inputGroup-right">
                 <div class="lineInput">
                     <label for>Cliente</label>
-                    <input type="text" id="cliente" placeholder="Digite o nome do cliente">
+                    <input type="text" id="clientInput" placeholder="Nome do Cliente">
                 </div>
+
                 <div class="lineInput">
-                    <label for>Data do Pedido</label>
-                    <input type="date" id="dataPedio">
+                    <label for>Cor</label>
+                    <input type="date" id="dateInput" placeholder="Data da compra">
                 </div>
             </div>
         </section>
 
-        <div class="card">
-            <button onclick="produto.salvar()" id="gerarPdf">Salvar</button>
-            <button onclick="produto.cancelar()">Cancelar</button>
+
+        </div class="card">
+        <button id="addBtn">Adicionar</button>
+        <button id="pdfBtn">Gerar PDF</button>
+        </div>
+
+        <div class="error-messages">
+            <span id="produtoError"></span>
+            <span id="corError"></span>
         </div>
 
         <div class="content">
-            <table border="1">
+            <table id="dataTable" border="1">
                 <thead>
-                    <th class="itemlist-id">ID</th>
-                    <th>NOME</th>
-                    <th>VALOR</th>
-                    <th class="itemlist-action">AÇÔES</th>
+                    <tr>
+                        <th class="itemlist-id">ID</th>
+                        <th>PRODUTO</th>
+                        <th>COR</th>
+                        <th class="itemlist-action">AÇÔES</th>
+                    </tr>
                 </thead>
-                <tbody id="tbody">
+                <tbody id="tableBody">
 
                 </tbody>
             </table>
         </div>
     </main>
 
-    
     <section class="pdf-display">
         <div id="pdf-content">
             <div class="pdf-pag">
@@ -91,16 +94,8 @@
         </div>  
     </section>
 
-    
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<!--
-Gerar pdf com biblioteca html2pdf
--->
-
-<script src="./scripts/product_module.js"></script>
-<!--
-Orientação por OBJero
--->    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
