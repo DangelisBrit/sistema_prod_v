@@ -3,7 +3,7 @@ import { validateInputs } from './modules/validator.js';
 
 class ProductManager {
     constructor() {
-        this.arrayProducts = [];
+        this.products = [];
         this.currentId = 1;
 
         // Elementos DOM
@@ -30,7 +30,7 @@ class ProductManager {
             this.corError
         )) return;
 
-        this.arrayProducts.push({
+        this.products.push({
             id: this.currentId++,
             nome: this.produtoInput.value.trim(),
             cor: this.corInput.value.trim()
@@ -41,35 +41,23 @@ class ProductManager {
     }
 
     renderTable() {
-        let tbody = document.getElementById('tableBody');
-        tbody.innerHTML = ""; // Usando innerHTML para limpar
-        
-        for (let i = 0; i < this.arrayProducts.length; i++) { // Corrigido o loop
-            let tr = tbody.insertRow(); 
-            
-            let td_id = tr.insertCell();
-            let td_produto = tr.insertCell();
-            let td_cor = tr.insertCell(); // Renomeado para td_cor
-            let td_acoes = tr.insertCell();
-
-            td_id.innerText = this.arrayProducts[i].id;
-            td_produto.innerText = this.arrayProducts[i].nome; // Corrigido para .nome
-            td_cor.innerText = this.arrayProducts[i].cor; // Usando .cor em vez de .preco
-
-            td_id.classList.add('center');
-
-            let imgEdit = document.createElement('img'); 
-            imgEdit.src = 'imgs/edit.png';
-            imgEdit.classList.add('action-icon'); // Adicione uma classe para estilização
-
-            let imgDelete = document.createElement('img'); 
-            imgDelete.src = 'imgs/delete.png';
-            imgDelete.classList.add('action-icon');
-
-            td_acoes.appendChild(imgEdit);
-            td_acoes.appendChild(imgDelete);
-            td_acoes.classList.add('center', 'action-cell'); // Adicionado action-cell
-        }
+        this.tableBody.innerHTML = this.products.map(prod => `
+            <tr>
+                <td>${prod.id}</td>
+                <td>${prod.nome}</td>
+                <td>${prod.cor}</td>
+                <td class="action-cell">
+                    <img src="imgs/edit.png" 
+                         class="table-icon action-edit" 
+                         title="Editar produto"
+                         data-id="${prod.id}">
+                    <img src="imgs/delete.png" 
+                         class="table-icon action-delete" 
+                         title="Excluir produto"
+                         data-id="${prod.id}">
+                </td>
+            </tr>
+        `).join('');
     }
 
     clearInputs() {
@@ -79,7 +67,7 @@ class ProductManager {
     }
 
     handlePdfGeneration() {
-        if (this.arrayProducts.length === 0) { // Corrigida a condição
+        if (this.products.length === 0) {
             alert('Adicione produtos antes de gerar PDF!');
             return;
         }
