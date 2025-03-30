@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerencia de Produção</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet">
+
+
+    <script src="scripts/scrippt_pg1.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <h1>Victoria Moda Festa</h1>
+    </header>
+
+    <main>
+
+        <div class="title">
+            <h2>Pedidios</h2>
+            <span>Lista de pedidos em produção</span>
+        </div>
+
+        <div class="lineInput">
+            <label for>Produto</label>
+            <input type="text" id="produto" placeholder="Digite o modelo do vestido">
+        </div>
+        <div class="lineInput">
+            <label for>Produto</label>
+            <input type="text" id="valor" placeholder="Digite o valor do vestido">
+        </div>
+
+        <div class="card">
+            <button onclick="produto.adicionar()">Adicionar</button>
+            <button onclick="produto.excluir()">Excluir</button>
+        </div>
+        <div class="content">
+            <table border="1">
+                <thead>
+                    <th>ID</th>
+                    <th>NOME</th>
+                    <th>VALOR</th>
+                    <th>AÇÔES</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Mesa Sala de estar</td>
+                        <td>1900</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+</body>
+</html>
