@@ -2,7 +2,7 @@ export function generatePdf() {
     // Clone a tabela antes de gerar o PDF
     const element = document.getElementById('dataTable');
     const clone = element.cloneNode(true);
-    
+
     // Ajusta as imagens para o PDF
     const images = clone.querySelectorAll('.table-icon');
     images.forEach(img => {
@@ -19,6 +19,6 @@ export function generatePdf() {
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
-    
+
     html2pdf().set(opt).from(clone).save();
 }

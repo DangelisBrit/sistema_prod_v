@@ -18,7 +18,7 @@ class ProductManager {
         // Eventos
         this.addBtn.addEventListener('click', () => this.addProduct());
         this.pdfBtn.addEventListener('click', () => this.handlePdfGeneration());
-        
+
         this.produtoInput.focus();
     }
 
@@ -43,10 +43,10 @@ class ProductManager {
     renderTable() {
         let tbody = document.getElementById('tableBody');
         tbody.innerHTML = ""; // Usando innerHTML para limpar
-        
+
         for (let i = 0; i < this.arrayProducts.length; i++) { // Corrigido o loop
-            let tr = tbody.insertRow(); 
-            
+            let tr = tbody.insertRow();
+
             let td_id = tr.insertCell();
             let td_produto = tr.insertCell();
             let td_cor = tr.insertCell(); // Renomeado para td_cor
@@ -58,11 +58,11 @@ class ProductManager {
 
             td_id.classList.add('center');
 
-            let imgEdit = document.createElement('img'); 
+            let imgEdit = document.createElement('img');
             imgEdit.src = 'imgs/edit.png';
             imgEdit.classList.add('action-icon'); // Adicione uma classe para estilização
 
-            let imgDelete = document.createElement('img'); 
+            let imgDelete = document.createElement('img');
             imgDelete.src = 'imgs/delete.png';
             imgDelete.classList.add('action-icon');
 
@@ -91,3 +91,4 @@ class ProductManager {
 document.addEventListener('DOMContentLoaded', () => {
     new ProductManager();
 });
+

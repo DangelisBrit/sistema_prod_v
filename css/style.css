@@ -1,42 +1,89 @@
-
-*{
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
+body {
     font-family: "Noto Sans Nag Mundari", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    background-color: #fcfcfa;
+    background-color: #f9f9f9;
 }
 
-
-
-header{
-    background-color: rgb(22, 22, 22);
+header {
     padding: 10px;
-    color: #f6dc7c;
+    color: #f6c77c;
+    background-color: #2e2e2e;
+}
+
+.web-page {
+    height: 100vh;
+    display: flex;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.sidebar {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #333;
+    color: #f4f4f4;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
     text-align: center;
 }
 
-main{
-    padding: 30px 50px;
+.sidebar a {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #f4f4f4;
+    background-color: #2e2e2e;
 }
 
-.title{
-    font-size: 18px;
+.title {
+    width: 75%;
+    padding-top: 20px;
     padding-bottom: 20px;
-}
-div span{
-    font-size: 14px;
-    padding: 0;
+    font-size: 18px;
 }
 
-.main-display {
+div span {
+    padding: 0;
+    opacity: 65%;
+    font-size: 14px;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.main-content {
+    width: 75%;
+}
+
+.form-la {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;    
+    gap: 10px;
 }
 
 .input-group {
@@ -44,20 +91,33 @@ div span{
 }
 
 
-.lineInput{
+.lineInput {
     display: grid;
     padding-top: 7px;
     margin-bottom: 10px;
 }
 
-input{
+input {
     padding: 8px;
-    border: 1px solid rgb(215, 215, 215);
+    border: 1px solid #dfdfdf;
     border-radius: 5px;
     outline: 0;
+    background-color: #fafafa;
 }
 
-.card{
+.card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.error-messages {
+    text-align: center;
+    font-weight: bold;
+    color: #2e2e2e;
+}
+
+.btn-goup {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,60 +125,62 @@ input{
     border: 0;
     padding: 10px 1px 65px;
     margin-top: 10px;
-
 }
 
-button{
-    color: #f6dc7c;
-    border: 3px outset #e1c86e;
+.btn_main {
     width: 110px;
     height: 38px;
     padding: 2px;
-    outline: 0;
-    background-color: rgb(22, 22, 22);
-    border-radius: 5px;
     font-weight: bold;
+    outline: 0;
+    border-radius: 5px;
+    border: 3px outset #d3985d;
+    color: #f6c77c;
+    background-color: rgb(22, 22, 22);
     transition: all ease 0.3s;
 }
 
-button:hover{
+.btn_main:hover {
     background-color: rgb(54, 54, 54);
 }
 
-.content{
+.table-content {
     margin-top: 15px;
 }
 
-table{
+table {
     border-collapse: collapse;
-    border: 1px solid rgb(215, 215, 215);
+    border: 1px solid #c5c5c5;
     width: 100%;
 }
 
-table th {
-    height: 26px;
-    background-color: #f8f8f1;
-}
-
-table th, td {
+table th,
+td {
     text-align: left;
     padding: 1px 6px;
+    background-color: #eeeeee;
 }
 
+table th {
+    font-size: 14px;
+    height: 24px;
+    background-color: #333;
+    color: #f4f4f4;
+}
 
-table td img{
+table td img {
     width: 20px;
     margin: 0 8px;
     border-radius: 6px;
-    background-color: rgb(236, 236, 236);
+    background-color: #eeeeee;
 }
 
-.itemlist-action{
+.itemlist-action {
     width: 85px;
     text-align: center;
 }
 
-.itemlist-id{
+.itemlist-id {
     width: 25px;
 }
 
@@ -130,27 +192,27 @@ table td img{
     text-align: center;
 }
 
-.pdf-display{
+.pdf-display {
     display: flex;
     justify-content: center;
 }
 
-#pdf-content{
+#pdf-content {
     height: 18cm;
     width: 27cm;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
 
-.pdf-pag{
+.pdf-pag {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 5px;    
-    background-color:  #ffffff;
+    gap: 5px;
+    background-color: #ffffff;
     border: 1px solid rgb(215, 215, 215);
 }
 
-.iteminfo-pdf{
+.iteminfo-pdf {
     margiN: 20px;
     width: 200px;
     height: 25px;
@@ -159,10 +221,11 @@ table td img{
     text-align: center;
     grid-template-columns: repeat(2, 1fr);
     background-color: #656565;
-    color:rgb(255, 255, 255)
+    color: rgb(255, 255, 255)
 }
-.iteminfo-pdf p{
+
+.iteminfo-pdf p {
     font-size: 14px;
     background-color: #d0d0d0;
-    color:rgb(0, 0, 0)
+    color: rgb(0, 0, 0)
 }
