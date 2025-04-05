@@ -1,66 +1,84 @@
-export function setDataLinkInputs() {
+import { carregarProdutos, getCodigosProdutos } from './dataService.js';
 
-    //*-*-*-*-*-*-*-*-*-*-*-DADOS*-*-*-*-*-*-*-*-*-*-*-
-    // listando as opções para cada input
-    const inListProducts = ["V0300", "V0301", "V0302", "V0303", "V0304"];
-    const inListColors = ["Prata", "Verde", "Grafite", "Azul", "Marsala"];
-    const inListsizes = ["PP", "P", "M", "G", "SM"];
+//*-*-*-*-*-*-*-*-*-*-*-DADOS*-*-*-*-*-*-*-*-*-*-*-
+// Elementos de DOM input para validação
+const productInput = document.getElementById('productInput');
+const colorInput = document.getElementById('colorInput');
+const sizeInput = document.getElementById('sizeInput');
+// Elementos do datalist para preencher
+const datalistProducts = document.getElementById('inList-products');
+const datalistColors = document.getElementById('inList-colors');
+const datalistSizes = document.getElementById('inList-sizes');
 
-    // Seleciona os elementos do DOM input
-    const productInput = document.getElementById('productInput');
-    const colorInput = document.getElementById('colorInput');
-    const sizeInput = document.getElementById('sizeInput');
+// Variáveis que serão preenchidas após loadProduct()
+let inListProducts = [];
+let inListColors = [];
+let inListSizes = [];
+//*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
-    // Seleciona o elemento do DOM datalist
-    const datalistProducts = document.getElementById('inList-products');
-    const datalistColors = document.getElementById('inList-colors');
-    const datalistSizes = document.getElementById('inList-sizes');
-    //*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+//.-.-.-.-.-.-.-.-.-.-.-METODOS.-.-.-.-.-.-.-.-.-.-.- 
+// Função para preencher os datalist vazios
+async function initializeProductData() {
+    try {
+        // Pega os dados da API tratados pelo módulo dataService 
+        await carregarProdutos();
+        // Após obter o dado tratado com os códigos de produtos os colocam em no array
+        inListProducts = getCodigosProdutos();
+        // Define outras listas
+        inListColors = ["Prata", "Verde", "Grafite", "Azul", "Marsala"];
+        inListSizes = ["PP", "P", "M", "G", "SM"];
 
-
-    //.-.-.-.-.-.-.-.-.-.-.-METODOS.-.-.-.-.-.-.-.-.-.-.- 
-    // Insere na lista pega no DOM (dataList) os valores do array (items) 
-    function populateDatalist(datalist, items) {
-        items.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item;
-            datalist.appendChild(option);
-        });
+        // Preenche os datalists nos inputs
+        populateDatalist(datalistProducts, inListProducts);
+        populateDatalist(datalistColors, inListColors);
+        populateDatalist(datalistSizes, inListSizes);
+        // Retorna os dados preenchidos nos arrays
+        return { inListProducts, inListColors, inListSizes };
+    } catch (error) {
+        console.error('Erro:', error);
+        throw error;
     }
+}
 
-    // Verifica se o valor do input pego no DOM corresponde a um valore do array
-    function validateInput(input, list) {
-        if (!list.includes(input.value)) {
-            alert(`O valor "${input.value}" não é válido. Por favor, selecione um valor da lista.`);
-            input.value = '';
-            input.focus();
-            return false;
-        }
-        return true;
-    };
-    //.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
+// Método que ao passar o nome da lista (dataList) e nome do array (items) insere os items na lista correpondenrte, pelo DOM  
+function populateDatalist(datalist, items) {
+    items.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item;
+        datalist.appendChild(option);
+    });
+}
 
+//Pega o input no DOM,verifica o valor se corresponde a um item dentro do array
+function validateInput(inputElement, validValues) {
+    if (!validValues.includes(inputElement.value)) {
+        alert(`O valor "${inputElement.value}" não é válido. Por favor, selecione um valor da lista.`);
+        inputElement.value = '';
+        inputElement.focus();
+        return false;
+    }
+    return true;
+}
+//.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
 
-    //._.-.-.-.-.-.-.-.-IMPLEMENTAÇÕES//._.-.-.-.-.-.-.-.-
-    // Preenche cada datalist usando o método auxiliar generico populateDatalist
-    populateDatalist(datalistProducts, inListProducts);
-    populateDatalist(datalistColors, inListColors);
-    populateDatalist(datalistSizes, inListsizes);
+//*-*-*-*-*-*-*-*-*-*-*-IMPLEMENTAÇÃO*-*-*-*-*-*-*-*-*-*-*-
 
-    // Adiciona evento validação aos inputs usando o metodo validateInput
-    productInput.addEventListener('change', () => validateInput(productInput, inListProducts));
-    colorInput.addEventListener('change', () => validateInput(colorInput, inListColors));
-    sizeInput.addEventListener('change', () => validateInput(sizeInput, inListsizes));
-    //-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
-};
+//Implementa o método validateInput, configuração nos eventos ao mudar os campos de entrada, verifica se os valores são válidos
+export function setDataLinkInputs() {
+    initializeProductData().then(() => {
+        productInput.addEventListener('change', () => validateInput(productInput, inListProducts));
+        colorInput.addEventListener('change', () => validateInput(colorInput, inListColors));
+        sizeInput.addEventListener('change', () => validateInput(sizeInput, inListSizes));
+    }).catch(error => {
+        console.error('Falha ao inicializar dados:', error);
+    });
+}
 
+//Métofdo para validar se os campos de entrada não estão vazios
 export function validateInputs(productInput, colorInput, sizeInput, errorMessage) {
     let isValid = true;
-
-    // Clear previous error message
     errorMessage.textContent = '';
 
-    // Check if any field is empty
     if (!productInput.value.trim() || !colorInput.value.trim() || !sizeInput.value.trim()) {
         errorMessage.textContent = '⚠ Preencha todos os campos. ⚠';
         isValid = false;
@@ -68,4 +86,4 @@ export function validateInputs(productInput, colorInput, sizeInput, errorMessage
 
     return isValid;
 };
-
+//*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-

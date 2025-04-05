@@ -1,0 +1,29 @@
+{
+  "produtos": [
+    {
+      "codigo": "V0300",
+      "nome": "Produto V0300",
+      "descricao": "Descrição do produto V0300"
+    },
+    {
+      "codigo": "V0301",
+      "nome": "Produto V0301",
+      "descricao": "Descrição do produto V0301"
+    },
+    {
+      "codigo": "V0302",
+      "nome": "Produto V0302",
+      "descricao": "Descrição do produto V0302"
+    },
+    {
+      "codigo": "V0303",
+      "nome": "Produto V0303",
+      "descricao": "Descrição do produto V0303"
+    },
+    {
+      "codigo": "V0304",
+      "nome": "Produto V0304",
+      "descricao": "Descrição do produto V0304"
+    }
+  ]
+}
