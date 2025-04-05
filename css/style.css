@@ -15,7 +15,7 @@ body {
 header {
     padding: 10px;
     color: #f6c77c;
-    background-color: #2e2e2e;
+    background-color: #161C1D;
 }
 
 .web-page {
@@ -30,7 +30,7 @@ header {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background-color: #333;
+    background-color: #1b2224;
     color: #f4f4f4;
 }
 
@@ -47,7 +47,7 @@ header {
     border-radius: 5px;
     text-decoration: none;
     color: #f4f4f4;
-    background-color: #2e2e2e;
+    background-color: #161C1D;
 }
 
 .title {
@@ -103,6 +103,7 @@ input {
     border-radius: 5px;
     outline: 0;
     background-color: #fafafa;
+    box-shadow: 2px 2px 6px rgba(72, 72, 72, 0.2);
 }
 
 .card {
@@ -136,12 +137,13 @@ input {
     border-radius: 5px;
     border: 3px outset #d3985d;
     color: #f6c77c;
-    background-color: rgb(22, 22, 22);
+    background-color: #161C1D;
     transition: all ease 0.3s;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn_main:hover {
-    background-color: rgb(54, 54, 54);
+    background-color: 3 rgb(54, 54, 54);
 }
 
 .table-content {
@@ -164,7 +166,7 @@ td {
 table th {
     font-size: 14px;
     height: 24px;
-    background-color: #333;
+    background-color: #161C1D;
     color: #f4f4f4;
 }
 

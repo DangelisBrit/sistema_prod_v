@@ -1,5 +1,6 @@
 import { generatePdf } from './modules/pdfGenerator.js';
-import { validateInputs } from './modules/validator.js';
+import { validateInputs } from './modules/inputConfigAndVerify.js';
+import { setDataLinkInputs } from './modules/inputConfigAndVerify.js';
 
 class ProductManager {
     constructor() {
@@ -7,33 +8,36 @@ class ProductManager {
         this.currentId = 1;
 
         // Elementos DOM
-        this.produtoInput = document.getElementById('produtoInput');
-        this.corInput = document.getElementById('corInput');
+        this.productInput = document.getElementById('productInput');
+        this.colorInput = document.getElementById('colorInput');
+        this.sizeInput = document.getElementById('sizeInput');
         this.addBtn = document.getElementById('addBtn');
         this.pdfBtn = document.getElementById('pdfBtn');
         this.tableBody = document.getElementById('tableBody');
-        this.produtoError = document.getElementById('produtoError');
-        this.corError = document.getElementById('corError');
+        this.errorMessage = document.getElementById('errorMessage');
 
-        // Eventos
+        // Eventos on click paraa adicionar produto e validador de pdf
         this.addBtn.addEventListener('click', () => this.addProduct());
         this.pdfBtn.addEventListener('click', () => this.handlePdfGeneration());
 
-        this.produtoInput.focus();
+        this.productInput.focus();
+        setDataLinkInputs();
     }
 
     addProduct() {
         if (!validateInputs(
-            this.produtoInput,
-            this.corInput,
-            this.produtoError,
-            this.corError
+            this.productInput,
+            this.colorInput,
+            this.sizeInput,
+            this.errorMessage,
         )) return;
 
         this.arrayProducts.push({
             id: this.currentId++,
-            nome: this.produtoInput.value.trim(),
-            cor: this.corInput.value.trim()
+            nome: this.productInput.value.trim(),
+            cor: this.colorInput.value.trim(),
+            size: this.sizeInput.value.trim()
+
         });
 
         this.renderTable();
@@ -41,45 +45,57 @@ class ProductManager {
     }
 
     renderTable() {
+        // Usando innerHTML para limpar a tabela para não inserir o array inteiro novamente sempre que um elemento é adicionado
         let tbody = document.getElementById('tableBody');
-        tbody.innerHTML = ""; // Usando innerHTML para limpar
+        tbody.innerHTML = "";
 
-        for (let i = 0; i < this.arrayProducts.length; i++) { // Corrigido o loop
+        // para cada produto no array de produtos adiciona 1 linha na tabela
+        for (let i = 0; i < this.arrayProducts.length; i++) {
+            // Criando as linhas do corpo da tabela
             let tr = tbody.insertRow();
-
+            // Criando as células da linha
             let td_id = tr.insertCell();
-            let td_produto = tr.insertCell();
-            let td_cor = tr.insertCell(); // Renomeado para td_cor
-            let td_acoes = tr.insertCell();
+            let td_product = tr.insertCell();
+            let td_color = tr.insertCell();
+            let td_size = tr.insertCell();
+            let td_action = tr.insertCell();
 
+            // Adicionando o conteúdo das células criadas na linha
             td_id.innerText = this.arrayProducts[i].id;
-            td_produto.innerText = this.arrayProducts[i].nome; // Corrigido para .nome
-            td_cor.innerText = this.arrayProducts[i].cor; // Usando .cor em vez de .preco
+            td_product.innerText = this.arrayProducts[i].nome;
+            td_color.innerText = this.arrayProducts[i].cor;
+            td_size.innerText = this.arrayProducts[i].size;
 
+            // Adicionando classes para estilização de centralização
             td_id.classList.add('center');
 
+            // Adicionando imagens a variáveis para serem inseridas na célula
             let imgEdit = document.createElement('img');
             imgEdit.src = 'imgs/edit.png';
-            imgEdit.classList.add('action-icon'); // Adicione uma classe para estilização
+            imgEdit.classList.add('action-icon');
 
             let imgDelete = document.createElement('img');
             imgDelete.src = 'imgs/delete.png';
             imgDelete.classList.add('action-icon');
 
-            td_acoes.appendChild(imgEdit);
-            td_acoes.appendChild(imgDelete);
-            td_acoes.classList.add('center', 'action-cell'); // Adicionado action-cell
+            // Adicionando a variável img à célula de ações
+            td_action.appendChild(imgEdit);
+            td_action.appendChild(imgDelete);
+            td_action.classList.add('center', 'action-cell'); // Adicionado action-cell
         }
     }
 
+    // Função para limpar os inputs
     clearInputs() {
-        this.produtoInput.value = '';
-        this.corInput.value = '';
-        this.produtoInput.focus();
+        this.productInput.value = '';
+        this.colorInput.value = '';
+        this.sizeInput.value = '';
+        this.productInput.focus();
     }
 
+    // valida se o array está vazio para gerar o pdf e gera o alerta
     handlePdfGeneration() {
-        if (this.arrayProducts.length === 0) { // Corrigida a condição
+        if (this.arrayProducts.length === 0) {
             alert('Adicione produtos antes de gerar PDF!');
             return;
         }
@@ -91,4 +107,3 @@ class ProductManager {
 document.addEventListener('DOMContentLoaded', () => {
     new ProductManager();
 });
-

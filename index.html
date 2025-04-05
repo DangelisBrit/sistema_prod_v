@@ -35,12 +35,22 @@
                     <div class="inputs">
                         <div class="input-group" id="inputGroup-left">
                             <div class="lineInput">
-                                <label for>Produto</label>
-                                <input type="text" id="produtoInput" placeholder="Nome do produto">
+                                <label for="productInput">Produto:</label>
+                                <input type="text" list="inList-products" id="productInput" name="productInput">
+                                <datalist id="inList-products"></datalist>
+                                <p id="mensageProduct" class="mensagem"></p>
                             </div>
+
                             <div class="lineInput">
-                                <label for>Cor</label>
-                                <input type="text" id="corInput" placeholder="Cor do produto">
+                                <label for="colorInput">Cor:</label>
+                                <input type="text" list="inList-colors" id="colorInput" name="colorInput">
+                                <datalist id="inList-colors"></datalist>
+                            </div>
+
+                            <div class="lineInput">
+                                <label for="sizeInput">Tamanho:</label>
+                                <input type="text" list="inList-sizes" id="sizeInput" name="sizeInput">
+                                <datalist id="inList-sizes"></datalist>
                             </div>
                         </div>
                         <div class="input-group" id="inputGroup-right">
@@ -57,8 +67,7 @@
 
                     <div class="card">
                         <div class="error-messages">
-                            <span id="produtoError"></span>
-                            <span id="corError"></span>
+                            <span id="errorMessage"></span>
                         </div>
 
                         <div class="btn-goup">
@@ -75,6 +84,7 @@
                                 <th class="itemlist-id">ID</th>
                                 <th>PRODUTO</th>
                                 <th>COR</th>
+                                <th>Tamanho</th>
                                 <th class="itemlist-action">AÇÔES</th>
                             </tr>
                         </thead>
