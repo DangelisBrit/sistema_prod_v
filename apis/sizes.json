@@ -1,0 +1,29 @@
+{
+  "sizes": [
+    {
+      "codigo": "PP",
+      "nome": "PP",
+      "descricao": "Tam 38"
+    },
+    {
+      "codigo": "P",
+      "nome": "p",
+      "descricao": "Tam 40"
+    },
+    {
+      "codigo": "M",
+      "nome": "M",
+      "descricao": "Tam 44"
+    },
+    {
+      "codigo": "G",
+      "nome": "G",
+      "descricao": "Tam 46"
+    },
+    {
+      "codigo": "SM",
+      "nome": "Sob Medida",
+      "descricao": "Sob Medida"
+    }
+  ]
+}

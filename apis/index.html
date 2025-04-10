@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Produtos</title>
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 8px;
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cadastro de Produtos</h1>
+
+    <div class="form-group">
+        <label for="productInput">Código do Produto:</label>
+        <input type="text" id="productInput" list="inList-products" placeholder="Digite o código...">
+        <datalist id="inList-products"></datalist>
+    </div>
+
+    <div class="form-group">
+        <label for="colorInput">Cor:</label>
+        <input type="text" id="colorInput" list="inList-colors" placeholder="Selecione uma cor...">
+        <datalist id="inList-colors"></datalist>
+    </div>
+
+    <div class="form-group">
+        <label for="sizeInput">Tamanho:</label>
+        <input type="text" id="sizeInput" list="inList-sizes" placeholder="Selecione um tamanho...">
+        <datalist id="inList-sizes"></datalist>
+    </div>
+
+    <script type="module">
+        import { carregarDados } from './dataService.js';
+
+        //*-*-*-*-*-*-*-*-*-*-*-DADOS*-*-*-*-*-*-*-*-*-*-*-
+        const productInput = document.getElementById('productInput');
+        const colorInput = document.getElementById('colorInput');
+        const sizeInput = document.getElementById('sizeInput');
+        const datalistProducts = document.getElementById('inList-products');
+        const datalistColors = document.getElementById('inList-colors');
+        const datalistSizes = document.getElementById('inList-sizes');
+
+        let inListProducts = [];
+        let inListColors = [];
+        let inListSizes = [];
+        //*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+        //.-.-.-.-.-.-.-.-.-.-.-METODOS.-.-.-.-.-.-.-.-.-.-.- 
+        function populateDatalist(datalistElement, values) {
+            datalistElement.innerHTML = '';
+            values.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                datalistElement.appendChild(option);
+            });
+        }
+
+        async function initializeProductData() {
+            try {
+                // Agora carregarProdutos() já retorna os códigos diretamente
+                inListProducts = await carregarDados({
+                    endpoint: './produtos.json',
+                    propriedadeArray: 'produtos',
+                    propriedadeMapear: 'codigo',
+                    nomeCache: 'produtos'
+                });
+
+                inListColors = ["Prata", "Verde", "Grafite", "Azul", "Marsala"];
+                inListSizes = ["PP", "P", "M", "G", "SM"];
+
+                populateDatalist(datalistProducts, inListProducts);
+                populateDatalist(datalistColors, inListColors);
+                populateDatalist(datalistSizes, inListSizes);
+
+                return { inListProducts, inListColors, inListSizes };
+            } catch (error) {
+                console.error('Erro:', error);
+                throw error;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await initializeProductData();
+                console.log('Dados inicializados com sucesso!');
+            } catch (error) {
+                console.error('Falha ao inicializar dados:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-import { carregarProdutos, getCodigosProdutos } from './dataService.js';
+import { loadData, loadColor, loadSize } from './dataService.js';
 
 //*-*-*-*-*-*-*-*-*-*-*-DADOS*-*-*-*-*-*-*-*-*-*-*-
 // Elementos de DOM input para validação
@@ -17,30 +17,37 @@ let inListSizes = [];
 //*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 //.-.-.-.-.-.-.-.-.-.-.-METODOS.-.-.-.-.-.-.-.-.-.-.- 
-// Função para preencher os datalist vazios
+// Função para preencher os arrays vazios e os carregam aos campos de dataLists inputs
 async function initializeProductData() {
     try {
-        // Pega os dados da API tratados pelo módulo dataService 
-        await carregarProdutos();
-        // Após obter o dado tratado com os códigos de produtos os colocam em no array
-        inListProducts = getCodigosProdutos();
-        // Define outras listas
-        inListColors = ["Prata", "Verde", "Grafite", "Azul", "Marsala"];
-        inListSizes = ["PP", "P", "M", "G", "SM"];
+        // Podemos passando os parametros da função genérica loadData que carega dados de endpoints Json   
+        inListProducts = await loadData({
+            endpointApi: 'apis/produtos.json',
+            propertyArrayApi: 'produtos',
+            propertyMap: 'codigo',
+            cacheName: 'produtos'
+        });
 
-        // Preenche os datalists nos inputs
+        //Ou  criamos uma função que mapea os dados no próprio módulo dataService e importamos a função que ja carregou os dados
+        inListColors = await loadColor();
+        inListSizes = await loadSize();
+
+        //Implementa o método populateDatalist que preenche os datalists dos inputs com os dados carregados nos arrays inList 
         populateDatalist(datalistProducts, inListProducts);
         populateDatalist(datalistColors, inListColors);
         populateDatalist(datalistSizes, inListSizes);
-        // Retorna os dados preenchidos nos arrays
+
+        //Retorna os dados preenchidos nos arrays
         return { inListProducts, inListColors, inListSizes };
+
+        //Caso haja erro ao tentar carregar os dados, retorna um erro
     } catch (error) {
         console.error('Erro:', error);
         throw error;
     }
 }
 
-// Método que ao passar o nome da lista (dataList) e nome do array (items) insere os items na lista correpondenrte, pelo DOM  
+//Método com função genérica que ao passar o a variável da lista (dataList) e nome do array (items) insere os items a lista correpondenrte, pelo DOM.
 function populateDatalist(datalist, items) {
     items.forEach(item => {
         const option = document.createElement('option');
@@ -49,7 +56,7 @@ function populateDatalist(datalist, items) {
     });
 }
 
-//Pega o input no DOM,verifica o valor se corresponde a um item dentro do array
+//Método que Obtem o input no DOM,verifica se o valor corresponde a um item dentro do array
 function validateInput(inputElement, validValues) {
     if (!validValues.includes(inputElement.value)) {
         alert(`O valor "${inputElement.value}" não é válido. Por favor, selecione um valor da lista.`);
@@ -63,7 +70,7 @@ function validateInput(inputElement, validValues) {
 
 //*-*-*-*-*-*-*-*-*-*-*-IMPLEMENTAÇÃO*-*-*-*-*-*-*-*-*-*-*-
 
-//Implementa o método validateInput, configuração nos eventos ao mudar os campos de entrada, verifica se os valores são válidos
+//Implementa o método validateInput, com o evento que ao modificar os campos de entrada, verifica se os valores são válidos
 export function setDataLinkInputs() {
     initializeProductData().then(() => {
         productInput.addEventListener('change', () => validateInput(productInput, inListProducts));

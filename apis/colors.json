@@ -1,0 +1,19 @@
+{
+  "colors": [
+    {
+      "codigo": "AB3354422",
+      "nome": "Prata",
+      "descricao": "Prata Preciosa"
+    },
+    {
+      "codigo": "AC3354422",
+      "nome": "Prata S",
+      "descricao": "Prata Supreme"
+    },
+    {
+      "codigo": "AD3354422",
+      "nome": "Verde",
+      "descricao": "Verde Preciosa"
+    }
+  ]
+}
